@@ -115,17 +115,20 @@ img { max-width: 100%; }
   position: absolute; inset: 0;
   background-image: url("https://i.ibb.co/bgxbvfJn/nantes-anonight.jpg");
   background-size: cover;
-  background-position: center 45%;
+  background-position: center center;
   animation: slowZoom 22s ease-in-out infinite alternate;
   will-change: transform;
 }
+@keyframes slowZoom {
+  from { transform: scale(1); }
+  to   { transform: scale(1.04); }
+}
 .hero__overlay {
   position: absolute; inset: 0; z-index: 1;
-  background: linear-gradient(to right,
-    rgba(0,0,0,0.85) 0%,
-    rgba(0,0,0,0.55) 35%,
-    rgba(0,0,0,0.0) 65%,
-    rgba(0,0,0,0.0) 100%
+  background: linear-gradient(to bottom,
+    rgba(0,0,0,0.45) 0%,
+    rgba(0,0,0,0.30) 50%,
+    rgba(0,0,0,0.55) 100%
   );
 }
 .hero__logo {
@@ -645,12 +648,72 @@ img { max-width: 100%; }
   .nav-cta { text-align: center; margin-left: 0; width: 100%; }
   .about-stats { grid-template-columns: 1fr 1fr; }
   .navbar { padding: 0 20px; }
-  .hero__logo { padding-left: 32px; }
-  .hero__infos { left: 32px; }
-  .hero__logo img { width: 320px; }
+
+  /* HERO */
+  .hero__bg {
+    background-position: center center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: #000;
+  }
+  .hero__logo {
+  position: absolute;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  padding: 0 32px;
 }
+.hero__logo img {
+  width: clamp(200px, 28vw, 400px);
+}
+.hero__infos {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+}
+.hero__divider {
+  margin: 2px auto;
+}
+
+  /* PROGRAMME empilé sur mobile */
+  .programme-grid {
+    flex-direction: column;
+    align-items: center;
+  }
+  .prog-card {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  /* COUNTDOWN 2x2 symétrique */
+  .countdown {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    justify-items: center;
+  }
+  .cd-sep { display: none; }
+  .cd-block { width: 100%; }
+
+  /* CONTACT bouton envoyer centré */
+  .btn-contact {
+    align-self: center;
+    width: 100%;
+    text-align: center;
+  }
+}
+
 @media (max-width: 480px) {
-  .hero__logo img { width: 240px; max-width: 85vw; }
+  .hero__logo img { width: clamp(140px, 50vw, 220px); }
   .hero__dates-nums { font-size: 24px; }
   .hero__dates-mois { font-size: 18px; }
 }

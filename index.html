@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>FEMAN</title>
+    <link rel="stylesheet" href="./style.css">
+
+  </head>
+    
+  <body>
+  <!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FEMAN 2026 — Festival des Musiques Africaines de Nantes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="feman.css">
+</head>
+<body>
+
+<!-- ══ NAVBAR ══ -->
+<nav class="navbar" id="navbar">
+  <div class="nav-logo">
+    <img src="https://i.ibb.co/7x6snrcY/FEMAN-2-large-on-wht.jpg" alt="FEMAN — Festival des Musiques Africaines de Nantes">
+  </div>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#accueil"     class="nav-link active">Accueil</a></li>
+    <li><a href="#apropos"     class="nav-link">À propos</a></li>
+    <li><a href="#programme"   class="nav-link">Programme</a></li>
+    <li><a href="#galerie" class="nav-link">Galerie</a></li>
+    
+    <li><a href="#partenaires" class="nav-link">Partenaires</a></li>
+    
+    <li><a href="#contact" class="nav-cta">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section class="hero" id="accueil">
+  <div class="hero__bg"></div>
+  <div class="hero__overlay"></div>
+  
+  <div class="hero__logo">
+  <img src="https://i.ibb.co/s9q6vHn1/FEMAN-2-on-blk.png" alt="FEMAN 2026">
+</div>
+  <div class="hero__infos">
+  <div class="hero__dates">
+  <span class="hero__dates-nums">21 · 22 · 23</span>
+  <span class="hero__dates-mois">Août <span class="hero__dates-annee">2026</span></span>
+</div>
+  <div class="hero__divider"></div>
+  <div class="hero__edition">1ère Édition</div>
+  <div class="hero__lieu">Parc de Malakoff — Nantes</div>
+</div></section>
+
+<!-- ══ COUNTDOWN ══ -->
+<section class="countdown-section">
+  <p class="countdown-label">Le festival commence dans</p>
+  <div class="countdown">
+    <div class="cd-block"><span class="cd-num" id="cd-days">--</span><span class="cd-unit">Jours</span></div>
+    <div class="cd-sep">:</div>
+    <div class="cd-block"><span class="cd-num" id="cd-hours">--</span><span class="cd-unit">Heures</span></div>
+    <div class="cd-sep">:</div>
+    <div class="cd-block"><span class="cd-num" id="cd-mins">--</span><span class="cd-unit">Minutes</span></div>
+    <div class="cd-sep">:</div>
+    <div class="cd-block"><span class="cd-num" id="cd-secs">--</span><span class="cd-unit">Secondes</span></div>
+  </div>
+</section>
+
+<!-- ══ À PROPOS ══ -->
+<section class="section section-about" id="apropos">
+  <div class="container">
+    <div class="section-tag">À Propos</div>
+    <h2 class="section-title">Un festival né de la passion<br><em>pour l'Afrique</em></h2>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>La ville de Nantes abrite une communauté africaine dynamique de près de <strong>40 000 personnes</strong> — Ivoiriens, Camerounais, Gabonais, Guinéens, Burkinabé, Congolais — qui se retrouvent chaque été au Parc de Malakoff.</p>
+        <p>C'est fort de ce potentiel que l'association <strong>NAC (Nantes Afrique Culture)</strong> a décidé de créer le FEMAN — creuset de rencontres autour de la richesse culinaire, gastronomique et musicale africaine.</p>
+        <p>Le FEMAN se veut un espace de célébration ouvert à tous — Africains, Européens, Asiatiques et citoyens du monde — pour partager des moments de joie et de gaîté autour de valeurs africaines.</p>
+      </div>
+      <div class="about-stats">
+        <div class="stat-card stat-orange reveal"><span class="stat-num">40 000</span><span class="stat-label">Résidents Africains à Nantes</span></div>
+        <div class="stat-card stat-yellow reveal"><span class="stat-num">3 Jours</span><span class="stat-label">De festival non-stop</span></div>
+        <div class="stat-card stat-green reveal"><span class="stat-num">4 ha</span><span class="stat-label">Parc de Malakoff</span></div>
+        <div class="stat-card stat-blue reveal"><span class="stat-num">100%</span><span class="stat-label">Entrée Gratuite</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PROGRAMME ══ -->
+<section class="section section-programme" id="programme">
+  <div class="prog-pattern"></div>
+  <div class="container">
+    <div class="section-tag light">Programme</div>
+    <h2 class="section-title white">3 Jours de <em>Célébration</em></h2>
+    <div class="programme-grid">
+      <div class="prog-card reveal">
+        <div class="prog-day">Jour 1</div>
+        <div class="prog-date">Vendredi 21 Août</div>
+        <ul class="prog-events">
+          <li><span class="prog-time">16h00</span> Ouverture officielle</li>
+          <li><span class="prog-time">17h00</span> Exposants & Artisans africains</li>
+          <li><span class="prog-time">19h00</span> Concerts & Animations</li>
+          <li><span class="prog-time">21h00</span> Grande scène — artistes invités</li>
+        </ul>
+      </div>
+      <div class="prog-card prog-featured reveal">
+        <div class="prog-day">Jour 2</div>
+        <div class="prog-date">Samedi 22 Août</div>
+        <ul class="prog-events">
+          <li><span class="prog-time">14h00</span> Espace gastronomie africaine</li>
+          <li><span class="prog-time">16h00</span> Performances danse & culture</li>
+          <li><span class="prog-time">18h00</span> Artistes Côte d'Ivoire & Cameroun</li>
+          <li><span class="prog-time">21h30</span> 🌟 Grande soirée de gala</li>
+        </ul>
+      </div>
+      <div class="prog-card reveal">
+        <div class="prog-day">Jour 3</div>
+        <div class="prog-date">Dimanche 23 Août</div>
+        <ul class="prog-events">
+          <li><span class="prog-time">12h00</span> Repas communautaire</li>
+          <li><span class="prog-time">15h00</span> Artistes Congo & diaspora</li>
+          <li><span class="prog-time">18h00</span> Cérémonie de clôture</li>
+          <li><span class="prog-time">20h00</span> Feu d'artifice & au revoir</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALERIE -->
+<section class="section section-galerie" id="galerie">
+  <div class="container">
+    <div class="section-tag">Galerie</div>
+    <h2 class="section-title">Photos <em>&</em> Vidéos</h2>
+    <p class="section-subtitle">Explorez les moments forts du FEMAN en images et en vidéos.</p>
+    <div class="galerie-blocks">
+      <div class="galerie-block" id="block-photos">
+        <div class="galerie-block-inner">
+          <div class="galerie-block-icon">📷</div>
+          <div class="galerie-block-label">Photos</div>
+          <div class="galerie-block-sub">Voir la galerie</div>
+        </div>
+      </div>
+      <div class="galerie-block" id="block-videos">
+        <div class="galerie-block-inner">
+          <div class="galerie-block-icon">🎬</div>
+          <div class="galerie-block-label">Vidéos</div>
+          <div class="galerie-block-sub">Voir les vidéos</div>
+        </div>
+      </div>
+      <div class="galerie-block" id="block-direction">
+        <div class="galerie-block-inner">
+          <div class="galerie-block-icon">🎙️</div>
+          <div class="galerie-block-label">Direction</div>
+          <div class="galerie-block-sub">L'équipe organisatrice</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PAGE PHOTOS -->
+<div class="galerie-page" id="page-photos">
+  <div class="galerie-page-header">
+    <button class="galerie-back" id="back-photos">← Retour</button>
+    <h2>Photos</h2>
+  </div>
+  <div class="galerie-page-grid">
+    <div class="galerie-placeholder gal-1"><span>Photo à venir</span></div>
+    <div class="galerie-placeholder gal-2"><span>Photo à venir</span></div>
+    <div class="galerie-placeholder gal-3"><span>Photo à venir</span></div>
+    <div class="galerie-placeholder gal-4"><span>Photo à venir</span></div>
+    <div class="galerie-placeholder gal-5"><span>Photo à venir</span></div>
+    <div class="galerie-placeholder gal-6"><span>Photo à venir</span></div>
+  </div>
+</div>
+
+<!-- PAGE VIDEOS -->
+<div class="galerie-page" id="page-videos">
+  <div class="galerie-page-header">
+    <button class="galerie-back" id="back-videos">← Retour</button>
+    <h2>Vidéos</h2>
+  </div>
+  <div class="galerie-page-grid">
+    <div class="video-placeholder">
+      <div class="video-play">▶</div>
+      <span>Vidéo à venir</span>
+    </div>
+    <div class="video-placeholder">
+      <div class="video-play">▶</div>
+      <span>Vidéo à venir</span>
+    </div>
+    <div class="video-placeholder">
+      <div class="video-play">▶</div>
+      <span>Vidéo à venir</span>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE DIRECTION -->
+<div class="galerie-page" id="page-direction">
+  <div class="galerie-page-header">
+    <button class="galerie-back" id="back-direction">← Retour</button>
+    <h2>Direction</h2>
+  </div>
+  <div class="direction-grid">
+    <div class="direction-card direction-featured">
+      <div class="direction-avatar">GV</div>
+      <div class="direction-info">
+        <div class="direction-name">Guillaume VERGÈS</div>
+        <div class="direction-role">Commissaire Général</div>
+        <p class="direction-bio">Journaliste ivoirien de renommée internationale, établi à Nantes depuis 2015. Auteur de la biographie de Magic System, fondateur du média Actupeople.net. Ancien conseiller en communication d'Alpha Blondy.</p>
+      </div>
+    </div>
+    <div class="direction-card">
+      <div class="direction-avatar">SZ</div>
+      <div class="direction-name">Sylla Zakaria-Djakiss</div>
+      <div class="direction-role">Vice-Président & Sponsoring</div>
+      <p class="direction-bio">Chef d'entreprise, trésorier de l'association NAC.</p>
+    </div>
+    <div class="direction-card">
+      <div class="direction-avatar">LT</div>
+      <div class="direction-name">Leon Teoquet</div>
+      <div class="direction-role">Président du Conseil d'Administration</div>
+      <p class="direction-bio">Artiste musicien, membre du groupe Les Frères 2 Misère.</p>
+    </div>
+    <div class="direction-card">
+      <div class="direction-avatar">SM</div>
+      <div class="direction-name">Serge Mahillet</div>
+      <div class="direction-role">Artiste & Membre fondateur</div>
+      <p class="direction-bio">Artiste chanteur évoluant dans la sphère musicale depuis plus de trois décennies.</p>
+    </div>
+    <div class="direction-card">
+      <div class="direction-avatar">TK</div>
+      <div class="direction-name">Toussaint Kpollaud Didier-Belos</div>
+      <div class="direction-role">Secrétaire Général</div>
+      <p class="direction-bio">Journaliste, diplômé de l'Université d'Abidjan Cocody. Pierre angulaire du comité d'organisation.</p>
+    </div>
+  </div>
+  <p class="direction-assoc">Un projet porté par l'association <strong>NAC — Nantes Afrique Culture</strong></p>
+</div>
+  
+<!-- ══ PARTENAIRES ══ -->
+<section class="section section-partenaires" id="partenaires">
+  <div class="container">
+    <div class="section-tag">Partenaires</div>
+    <h2 class="section-title">Nos Partenaires <em>&</em> Sponsors</h2>
+    <p class="section-subtitle">Rejoignez l'aventure FEMAN en tant que partenaire ou sponsor. Plusieurs formules disponibles pour soutenir ce festival unique.</p>
+    <div class="partenaires-tiers">
+
+      <!-- OR -->
+      <div class="tier tier-gold reveal">
+        <div class="tier-header">
+          <span class="tier-medal">🥇</span>
+          <div>
+            <div class="tier-label">Or</div>
+            <div class="tier-sublabel">Partenaire Principal</div>
+          </div>
+        </div>
+        <div class="tier-slots">
+          <div class="tier-slot">Votre entreprise ici</div>
+          <div class="tier-slot">Disponible</div>
+        </div>
+      </div>
+
+      <!-- ARGENT -->
+      <div class="tier tier-silver reveal">
+        <div class="tier-header">
+          <span class="tier-medal">🥈</span>
+          <div>
+            <div class="tier-label">Argent</div>
+            <div class="tier-sublabel">Partenaire Associé</div>
+          </div>
+        </div>
+        <div class="tier-slots">
+          <div class="tier-slot">Disponible</div>
+          <div class="tier-slot">Disponible</div>
+          <div class="tier-slot">Disponible</div>
+        </div>
+      </div>
+
+      <!-- BRONZE -->
+      <div class="tier tier-bronze reveal">
+        <div class="tier-header">
+          <span class="tier-medal">🥉</span>
+          <div>
+            <div class="tier-label">Bronze</div>
+            <div class="tier-sublabel">Sponsor</div>
+          </div>
+        </div>
+        <div class="tier-slots">
+          <div class="tier-slot">Disponible</div>
+          <div class="tier-slot">Disponible</div>
+          <div class="tier-slot">Disponible</div>
+          <div class="tier-slot">Disponible</div>
+        </div>
+      </div>
+
+    </div>
+    <div class="partenaires-cta">
+      <a href="#contact" class="btn-primary">Devenir Partenaire</a>
+    </div>
+  </div>
+</section>
+  
+<!-- CONTACT -->
+<section class="section section-contact" id="contact">
+  <div class="container">
+    <div class="section-tag white">Contact</div>
+    <h2 class="section-title" style="color: var(--orange);">Parlons-nous</h2>
+    <p class="section-subtitle white">Une question, un partenariat, une demande presse — nous vous répondons dans les 48h.</p>
+    <div class="contact-grid">
+      <div class="contact-infos">
+        <div class="contact-item">
+          <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <div>
+            <strong>Email</strong>
+            <p>contact@feman-nantes.fr</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <div>
+            <strong>Lieu</strong>
+            <p>Parc de Malakoff, Nantes — 44000</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          <div>
+            <strong>Dates</strong>
+            <p>21, 22 et 23 Août 2026</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <div>
+            <strong>Association</strong>
+            <p>NAC — Nantes Afrique Culture</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Nom</label>
+            <input type="text" placeholder="Votre nom">
+          </div>
+          <div class="form-group">
+            <label>Prénom</label>
+            <input type="text" placeholder="Votre prénom">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" placeholder="votre@email.com">
+        </div>
+        <div class="form-group">
+          <label>Objet</label>
+          <select>
+            <option value="" disabled selected>Sélectionnez un objet</option>
+            <option>Partenariat & Sponsoring</option>
+            <option>Presse & Médias</option>
+            <option>Exposants & Artisans</option>
+            <option>Bénévolat</option>
+            <option>Information générale</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Message</label>
+          <textarea placeholder="Votre message..." rows="5"></textarea>
+        </div>
+        <button class="btn-contact" id="contactBtn">Envoyer</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer class="footer">
+  <div class="footer-rainbow"></div>
+  <div class="container">
+    <div class="footer-logo">
+  <img src="https://i.ibb.co/NgHvfz6K/FEMANlogo-on-wht.png" alt="FEMAN">
+  <div class="footer-logo-sep"></div>
+  <img src="https://i.ibb.co/fGYD6hN9/NAC-blc-alpha.png" alt="NAC — Nantes Afrique Culture">
+</div>
+    <div class="footer-bottom">
+      <p>© 2026 FEMAN — Festival des Musiques Africaines de Nantes</p>
+      <p>Un projet de l'association <strong>NAC — Nantes Afrique Culture</strong></p>
+    </div>
+  </div>
+</footer>
+  
+<script src="feman.js"></script>
+</body>
+</html>
+    <script  src="./script.js"></script>
+
+  </body>
+  
+</html>

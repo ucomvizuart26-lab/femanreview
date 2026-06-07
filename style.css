@@ -696,7 +696,10 @@ img { max-width: 100%; }
 .footer { background: var(--dark2); color: white; padding: 64px 0 32px; text-align: center; position: relative; }
 .footer-rainbow { position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--orange), var(--yellow), var(--green), var(--blue)); }
 .footer-logo { display: flex; align-items: center; justify-content: center; gap: 40px; margin-bottom: 32px; }
-.footer-logo img { height: 80px; width: auto; mix-blend-mode: screen; }
+.footer-logo img { 
+  height: 80px; 
+  width: auto; 
+}
 .footer-logo-sep { width: 1px; height: 60px; background: rgba(255,255,255,0.25); }
 .footer-bottom { border-top: 1px solid rgba(255,255,255,0.07); padding-top: 22px; margin-top: 32px; }
 .footer-bottom p { font-size: 11px; font-weight: 300; color: rgba(255,255,255,0.28); letter-spacing: 1px; margin-bottom: 4px; }
@@ -757,14 +760,18 @@ img { max-width: 100%; }
   width: clamp(160px, 55vw, 260px);
 }
 .hero__infos {
-  align-items: center;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-family: Helvetica, Arial, sans-serif;
+  align-items: flex-start;
+  width: 100%;
 }
   .hero__edition-row {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 4px;
+  justify-content: space-between;
+  width: 100%;
 }
 .hero__edition, .hero__lieu {
   white-space: nowrap;
@@ -1139,6 +1146,23 @@ img { max-width: 100%; }
   text-align: center;
   padding: 0;
 }
+  .hero__overlay {
+  background: rgba(0,0,0,0.45);
+}
+.hero__dates {
+  justify-content: center;
+}
+.hero__edition-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+.hero__edition, .hero__lieu {
+  font-size: 9px;
+  white-space: nowrap;
+  letter-spacing: 3px;
+}
 
   /* COUNTDOWN 2x2 symétrique */
 .countdown {
@@ -1175,3 +1199,52 @@ img { max-width: 100%; }
     max-width: 100%;
     box-sizing: border-box;
   }
+  /* ══════════════════════════════════════════
+   SPLASH SCREEN
+══════════════════════════════════════════ */
+#splash {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.8s ease;
+}
+#splash.hide {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.splash-logo {
+  position: relative;
+  width: 220px;
+  height: 220px;
+}
+
+.splash-img-white,
+.splash-img-color {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.splash-img-white {
+  filter: brightness(0) invert(1);
+  z-index: 2;
+}
+
+.splash-img-color {
+  z-index: 1;
+  clip-path: inset(100% 0 0 0);
+  animation: fillUp 2.5s ease forwards;
+  animation-delay: 0.5s;
+}
+
+@keyframes fillUp {
+  from { clip-path: inset(100% 0 0 0); }
+  to   { clip-path: inset(0% 0 0 0); }
+}

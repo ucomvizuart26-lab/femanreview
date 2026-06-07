@@ -1,3 +1,12 @@
+// SPLASH
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('splash').classList.add('hide');
+    setTimeout(() => {
+      document.getElementById('splash').style.display = 'none';
+    }, 800);
+  }, 3500);
+});
 /* ── COUNTDOWN ── */
 function updateCountdown() {
   const target = new Date('2026-08-21T00:00:00');

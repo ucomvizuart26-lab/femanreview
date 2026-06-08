@@ -146,13 +146,21 @@ img { max-width: 100%; }
   overflow: visible;
 }
 .hero__logo img {
-  width: clamp(300px, 42vw, 626px);
+  width: clamp(360px, 42vw, 640px);
+  animation: slideFromRight 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  animation-delay: 4.8s;
+  opacity: 0;
 }
 .hero__infos {
   display: flex;
   flex-direction: column;
   gap: 8px;
   font-family: Helvetica, Arial, sans-serif;
+  align-items: flex-start;
+  width: clamp(360px, 42vw, 640px);
+  animation: slideFromLeft 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  animation-delay: 5.2s;
+  opacity: 0;
 }
 .hero__dates {
   display: flex;
@@ -167,7 +175,7 @@ img { max-width: 100%; }
   text-shadow: 0 2px 20px rgba(0,0,0,0.7);
 }
 .hero__dates-mois {
-  font-size: clamp(24px, 3vw, 42px);
+  font-size: clamp(24px, 3vw, 46px);
   font-weight: 400;
   color: rgba(255,255,255,0.90);
   letter-spacing: 2px;
@@ -185,19 +193,20 @@ img { max-width: 100%; }
 .hero__edition-row {
   display: flex;
   align-items: center;
-  gap: 16px;
+  justify-content: space-between;
+  width: 100%;
 }
 .hero__edition {
-  font-size: 13px;
+  font-size: 11px;
   font-weight: 700;
-  letter-spacing: 5px;
+  letter-spacing: 8px;
   text-transform: uppercase;
   color: rgba(255,255,255,0.55);
 }
 .hero__lieu {
   font-size: 13px;
   font-weight: 300;
-  letter-spacing: 5px;
+  letter-spacing: 8px;
   text-transform: uppercase;
   color: rgba(255,255,255,0.38);
 }
@@ -1206,7 +1215,7 @@ img { max-width: 100%; }
   position: fixed;
   inset: 0;
   background: #000;
-  z-index: 9999;
+  z-index: 999999;
   display: flex;
   align-items: center;
   justify-content: center;

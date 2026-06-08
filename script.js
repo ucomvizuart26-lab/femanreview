@@ -141,3 +141,77 @@ document.querySelectorAll('.galerie-back').forEach(btn => {
     document.body.style.overflow = '';
   });
 });
+/* PHOTO FULLSCREEN LIGHTBOX */
+function openLightbox(photos, index) {
+  const fs = document.createElement('div');
+  fs.className = 'photo-fullscreen';
+  fs.innerHTML = `
+    <button class="lb-prev">&#8249;</button>
+    <img src="${photos[index]}" alt="photo">
+    <button class="lb-next">&#8250;</button>
+    <button class="lb-close">✕</button>
+  `;
+  
+  let current = index;
+  
+  fs.querySelector('.lb-prev').addEventListener('click', (e) => {
+    e.stopPropagation();
+    current = (current - 1 + photos.length) % photos.length;
+    fs.querySelector('img').src = photos[current];
+  });
+  
+  fs.querySelector('.lb-next').addEventListener('click', (e) => {
+    e.stopPropagation();
+    current = (current + 1) % photos.length;
+    fs.querySelector('img').src = photos[current];
+  });
+  
+  fs.querySelector('.lb-close').addEventListener('click', () => fs.remove());
+  fs.addEventListener('click', (e) => {
+    if (e.target === fs) fs.remove();
+  });
+  
+  document.body.appendChild(fs);
+}
+
+document.querySelectorAll('.galerie-placeholder').forEach((el, i, all) => {
+  el.addEventListener('click', () => {
+    const photos = [...all]
+      .map(p => p.style.backgroundImage.replace(/url\(['"]?/, '').replace(/['"]?\)/, ''))
+      .filter(url => url && url !== '');
+    const index = photos.indexOf(
+      el.style.backgroundImage.replace(/url\(['"]?/, '').replace(/['"]?\)/, '')
+    );
+    if (photos.length === 0) return;
+    openLightbox(photos, index >= 0 ? index : 0);
+  });
+});
+/* VIDEO FULLSCREEN */
+document.getElementById('video-1').addEventListener('click', () => {
+  const fs = document.createElement('div');
+  fs.style.cssText = 'position:fixed;inset:0;background:#000;z-index:99999;display:flex;align-items:center;justify-content:center;cursor:pointer;';
+  fs.innerHTML = `
+    <iframe 
+      src="https://www.youtube.com/embed/O7gmpGDD_Rg?autoplay=1&mute=0&controls=1&modestbranding=1&rel=0&showinfo=0" 
+      style="width:90vw;height:80vh;border:none;border-radius:8px;" 
+      allow="autoplay;fullscreen">
+    </iframe>
+    <button style="position:absolute;top:20px;right:24px;background:transparent;border:none;color:white;font-size:28px;cursor:pointer;" onclick="this.parentElement.remove()">✕</button>
+  `;
+  fs.addEventListener('click', (e) => { if(e.target === fs) fs.remove(); });
+  document.body.appendChild(fs);
+});
+document.getElementById('video-2').addEventListener('click', () => {
+  const fs = document.createElement('div');
+  fs.style.cssText = 'position:fixed;inset:0;background:#000;z-index:99999;display:flex;align-items:center;justify-content:center;cursor:pointer;';
+  fs.innerHTML = `
+    <iframe 
+      src="https://www.youtube.com/embed/TQszswcED1k?autoplay=1&mute=0&controls=1&modestbranding=1&rel=0&showinfo=0" 
+      style="width:90vw;height:80vh;border:none;border-radius:8px;" 
+      allow="autoplay;fullscreen">
+    </iframe>
+    <button style="position:absolute;top:20px;right:24px;background:transparent;border:none;color:white;font-size:28px;cursor:pointer;" onclick="this.parentElement.remove()">✕</button>
+  `;
+  fs.addEventListener('click', (e) => { if(e.target === fs) fs.remove(); });
+  document.body.appendChild(fs);
+});

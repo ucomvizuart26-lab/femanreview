@@ -27,20 +27,20 @@
 <div id="splash" style="position:fixed;inset:0;background:#000;z-index:999999;display:flex;align-items:center;justify-content:center;transition:opacity 1s ease;">
   <div style="position:relative;width:200px;height:200px;">
     <img src="https://i.ibb.co/4w3Mhn4r/logo-only-wht.png" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;filter:brightness(0) invert(1);z-index:1;">
-    <img src="https://i.ibb.co/4w3Mhn4r/logo-only-wht.png" id="splash-color" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;z-index:2;clip-path:polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%);">
+    <div style="position:absolute;inset:0;z-index:2;overflow:hidden;">
+      <svg id="wave-svg" style="position:absolute;bottom:0;left:0;width:100%;height:100%;" viewBox="0 0 200 200" preserveAspectRatio="none">
+        <defs>
+          <clipPath id="waveClip">
+            <path id="wave-path" d="M0,200 Q100,200 200,200 L200,200 L0,200 Z"/>
+          </clipPath>
+        </defs>
+        <image href="https://i.ibb.co/4w3Mhn4r/logo-only-wht.png" x="0" y="0" width="200" height="200" clip-path="url(#waveClip)"/>
+      </svg>
+    </div>
   </div>
 </div>
+
 <style>
-@keyframes fillWave {
-  0%   { clip-path: polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%); }
-  10%  { clip-path: polygon(0% 95%, 25% 92%, 50% 95%, 75% 92%, 100% 95%, 100% 100%, 0% 100%); }
-  25%  { clip-path: polygon(0% 80%, 25% 75%, 50% 80%, 75% 75%, 100% 80%, 100% 100%, 0% 100%); }
-  40%  { clip-path: polygon(0% 62%, 25% 57%, 50% 62%, 75% 57%, 100% 62%, 100% 100%, 0% 100%); }
-  55%  { clip-path: polygon(0% 44%, 25% 39%, 50% 44%, 75% 39%, 100% 44%, 100% 100%, 0% 100%); }
-  70%  { clip-path: polygon(0% 26%, 25% 21%, 50% 26%, 75% 21%, 100% 26%, 100% 100%, 0% 100%); }
-  85%  { clip-path: polygon(0% 10%, 25% 5%, 50% 10%, 75% 5%, 100% 10%, 100% 100%, 0% 100%); }
-  100% { clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%); }
-}
 @keyframes slideFromRight {
   from { opacity: 0; transform: translateX(60px); }
   to   { opacity: 1; transform: translateX(0); }
@@ -50,22 +50,51 @@
   to   { opacity: 1; transform: translateX(0); }
 }
 </style>
+
 <script>
 (function() {
-  var colorImg = document.getElementById('splash-color');
   var splash = document.getElementById('splash');
+  var path = document.getElementById('wave-path');
+  var start = null;
+  var duration = 4000;
+
+  function animateWave(timestamp) {
+    if (!start) start = timestamp;
+    var elapsed = timestamp - start;
+    var progress = Math.min(elapsed / duration, 1);
+    
+    var fill = 200 - (progress * 200);
+    var waveAmp = 7 * Math.sin(progress * Math.PI * 3) * (1 - progress * 0.8);
+
+    var p1y = fill + waveAmp;
+    var p2y = fill - waveAmp;
+    var p3y = fill + waveAmp;
+    var p4y = fill - waveAmp * 0.5;
+
+    path.setAttribute('d',
+      'M0,' + (fill + waveAmp) + 
+      ' C50,' + p1y + ' 80,' + p2y + ' 120,' + p3y + 
+      ' C150,' + p3y + ' 175,' + p4y + ' 200,' + fill +
+      ' L200,200 L0,200 Z'
+    );
+
+    if (progress < 1) {
+      requestAnimationFrame(animateWave);
+    } else {
+      path.setAttribute('d', 'M0,0 L200,0 L200,200 L0,200 Z');
+      setTimeout(function() {
+        splash.style.opacity = '0';
+        setTimeout(function() { splash.style.display = 'none'; }, 1000);
+      }, 600);
+    }
+  }
+
   setTimeout(function() {
-    colorImg.style.animation = 'fillWave 3s ease forwards';
-  }, 500);
-  setTimeout(function() {
-    splash.style.opacity = '0';
-    setTimeout(function() {
-      splash.style.display = 'none';
-    }, 1000);
-  }, 5000);
+    requestAnimationFrame(animateWave);
+  }, 400);
 })();
 </script>
-
+  
 <!-- ══ NAVBAR ══ -->
 <nav class="navbar" id="navbar">
   <div class="nav-logo">
@@ -225,7 +254,9 @@
       </div>
       <div class="galerie-block" id="block-direction">
         <div class="galerie-block-inner">
-          <div class="galerie-block-icon">🎯</div>
+          <div class="galerie-block-icon">
+  <img src="https://i.ibb.co/HpGVpyKf/icon-direction.png" style="width:56px;height:56px;object-fit:contain;filter:drop-shadow(0px 4px 8px rgba(0,0,0,0.5)) drop-shadow(0px 2px 3px rgba(255,255,255,0.15));"/>
+</div>
           <div class="galerie-block-label">Direction</div>
           <div class="galerie-block-sub">L'équipe organisatrice</div>
         </div>
@@ -241,12 +272,12 @@
     <h2>Photos</h2>
   </div>
   <div class="galerie-page-grid">
-    <div class="galerie-placeholder gal-1"><span>Photo à venir</span></div>
-    <div class="galerie-placeholder gal-2"><span>Photo à venir</span></div>
-    <div class="galerie-placeholder gal-3"><span>Photo à venir</span></div>
-    <div class="galerie-placeholder gal-4"><span>Photo à venir</span></div>
-    <div class="galerie-placeholder gal-5"><span>Photo à venir</span></div>
-    <div class="galerie-placeholder gal-6"><span>Photo à venir</span></div>
+    <div class="galerie-placeholder gal-1" style="background-image: url('https://i.ibb.co/Gvm7j7sH/Team-NAC.jpg'); background-size: cover; background-position: center;"><span></span></div>
+    <div class="galerie-placeholder gal-2" style="background-image: url('https://i.ibb.co/DPSP8nY1/IMG-20260602-WA0008.jpg'); background-size: cover; background-position: center;"><span></span></div>
+    <div class="galerie-placeholder gal-3" style="background-image: url('https://i.ibb.co/9HVdYjsQ/IMG-20260602-WA0015.jpg'); background-size: cover; background-position: center;"><span></span></div>
+    <div class="galerie-placeholder gal-4" style="background-image: url('https://i.ibb.co/DP1vTMV2/IMG-20260602-WA0016.jpg'); background-size: cover; background-position: center;"><span></span></div>
+    <div class="galerie-placeholder gal-5" style="background-image: url('https://i.ibb.co/QF7FyQv5/IMG-20260602-WA0017.jpg'); background-size: cover; background-position: center;"><span></span></div>
+    <div class="galerie-placeholder gal-6" style="background-image: url('https://i.ibb.co/9HkFdLZR/IMG-20260602-WA0011.jpg'); background-size: cover; background-position: center;"><span></span></div>
   </div>
 </div>
 
@@ -257,14 +288,14 @@
     <h2>Vidéos</h2>
   </div>
   <div class="galerie-page-grid">
-    <div class="video-placeholder">
-      <div class="video-play">▶</div>
-      <span>Vidéo à venir</span>
-    </div>
-    <div class="video-placeholder">
-      <div class="video-play">▶</div>
-      <span>Vidéo à venir</span>
-    </div>
+    <div class="video-placeholder" id="video-1" style="background-image:url('https://img.youtube.com/vi/O7gmpGDD_Rg/maxresdefault.jpg');background-size:cover;background-position:center;position:relative;">
+  <div class="video-play">▶</div>
+  <span>Lancement FEMAN 2026</span>
+</div>
+    <div class="video-placeholder" id="video-2" style="background-image:url('https://img.youtube.com/vi/TQszswcED1k/maxresdefault.jpg');background-size:cover;background-position:center;position:relative;">
+  <div class="video-play">▶</div>
+  <span>FEMAN 2026</span>
+</div>
     <div class="video-placeholder">
       <div class="video-play">▶</div>
       <span>Vidéo à venir</span>
@@ -280,7 +311,7 @@
   </div>
   <div class="direction-grid">
     <div class="direction-card direction-featured">
-      <div class="direction-avatar">GV</div>
+      <div class="direction-avatar" style="background-image:url('https://i.ibb.co/DDr04qcm/Guillaume-Verges.jpg');background-size:cover;background-position:center;"></div>
       <div class="direction-info">
         <div class="direction-name">Guillaume VERGÈS</div>
         <div class="direction-role">Commissaire Général</div>
@@ -288,29 +319,76 @@
       </div>
     </div>
     <div class="direction-card">
-      <div class="direction-avatar">SZ</div>
+      <div class="direction-avatar" style="background-image:url('https://i.ibb.co/VpbNsVJW/Sylla-Djakiss.jpg');background-size:cover;background-position:center;"></div>
       <div class="direction-name">Sylla Zakaria-Djakiss</div>
-      <div class="direction-role">Vice-Président & Sponsoring</div>
+      <div class="direction-role">Vice-Président & Trésorier Général</div>
       <p class="direction-bio">Chef d'entreprise, trésorier de l'association NAC.</p>
     </div>
     <div class="direction-card">
-      <div class="direction-avatar">LT</div>
+      <div class="direction-avatar" style="background-image:url('https://i.ibb.co/ycVPqWVF/Leon-Teoquet.jpg');background-size:cover;background-position:center;"></div>
       <div class="direction-name">Leon Teoquet</div>
       <div class="direction-role">Président du Conseil d'Administration</div>
       <p class="direction-bio">Artiste musicien, membre du groupe Les Frères 2 Misère.</p>
     </div>
     <div class="direction-card">
-      <div class="direction-avatar">SM</div>
+      <div class="direction-avatar" style="background-image:url('https://i.ibb.co/N6pHfq0G/Serge-Mahillet.jpg');background-size:cover;background-position:center;"></div>
       <div class="direction-name">Serge Mahillet</div>
       <div class="direction-role">Artiste & Membre fondateur</div>
       <p class="direction-bio">Artiste chanteur évoluant dans la sphère musicale depuis plus de trois décennies.</p>
     </div>
     <div class="direction-card">
-      <div class="direction-avatar">TK</div>
+      <div class="direction-avatar" style="background-image:url('https://i.ibb.co/TqNZ2Gq0/Kpollaud-Didier-Belos.jpg');background-size:cover;background-position:center;"></div>
       <div class="direction-name">Toussaint Kpollaud Didier-Belos</div>
       <div class="direction-role">Secrétaire Général</div>
       <p class="direction-bio">Journaliste, diplômé de l'Université d'Abidjan Cocody. Pierre angulaire du comité d'organisation.</p>
     </div>
+    <div class="direction-card">
+  <div class="direction-avatar">JN</div>
+  <div class="direction-name">Jessica Nongo</div>
+  <div class="direction-role">Secrétaire Générale Adjointe</div>
+</div>
+
+<div class="direction-card">
+  <div class="direction-avatar" style="background-image:url('https://i.ibb.co/svt3053W/Rachelle-Poulissi.jpg');background-size:cover;background-position:center;"></div>
+  <div class="direction-name">Rachelle Poulissi</div>
+  <div class="direction-role">Trésorière Adjointe</div>
+</div>
+
+<div class="direction-card">
+  <div class="direction-avatar" style="background-image:url('https://i.ibb.co/39LmP5X5/Paco-me-Koula.jpg');background-size:cover;background-position:center;"></div>
+  <div class="direction-name">Pacôme Koula</div>
+  <div class="direction-role">Vice-Président chargé de l'Organisation</div>
+</div>
+
+<div class="direction-card">
+  <div class="direction-avatar" style="background-image:url('https://i.ibb.co/7t51v4xy/Edwige-Koffi.jpg');background-size:cover;background-position:center;"></div>
+  <div class="direction-name">Edwige Koffi</div>
+  <div class="direction-role">Vice-Présidente chargée des Relations Institutionnelles</div>
+</div>
+
+<div class="direction-card">
+  <div class="direction-avatar" style="background-image:url('https://i.ibb.co/bR8d21Hr/Jean-Bedel-Bahi.jpg');background-size:cover;background-position:center;"></div>
+  <div class="direction-name">Jean Bedel Bahi</div>
+  <div class="direction-role">Vice-Président chargé des Relations avec les Associations</div>
+</div>
+
+<div class="direction-card">
+  <div class="direction-avatar" style="background-image:url('https://i.ibb.co/CpxRZWvK/Mahamadou-Zango-Bill.jpg');background-size:cover;background-position:center;"></div>
+  <div class="direction-name">Mahamadou Zango</div>
+  <div class="direction-role">Vice-Président chargé de la Sécurité</div>
+</div>
+
+<div class="direction-card">
+  <div class="direction-avatar" style="background-image:url('https://i.ibb.co/CKvNzdLS/Gaelle-kone.jpg');background-size:cover;background-position:center;"></div>
+  <div class="direction-name">Gaëlle Koné</div>
+  <div class="direction-role">Vice-Présidente chargée de l'Événementiel</div>
+</div>
+
+<div class="direction-card">
+  <div class="direction-avatar" style="background-image:url('https://i.ibb.co/JjKsjNdm/Cyriaque-Richard.jpg');background-size:cover;background-position:center;"></div>
+  <div class="direction-name">Cyriaque Richard</div>
+  <div class="direction-role">Vice-Président en charge des Exposants</div>
+</div>
   </div>
   <p class="direction-assoc">Un projet porté par l'association <strong>NAC — Nantes Afrique Culture</strong></p>
 </div>

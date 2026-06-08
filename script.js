@@ -180,10 +180,32 @@ function openLightbox(photos, index) {
   closeBtn.style.cssText = 'position:absolute;top:20px;right:24px;background:transparent;border:none;color:white;font-size:28px;cursor:pointer;z-index:2;';
   closeBtn.addEventListener('click', () => fs.remove());
 
-  fs.appendChild(track);
+ fs.appendChild(track);
   fs.appendChild(closeBtn);
-  document.body.appendChild(fs);
 
+  /* BOUTONS ORDI UNIQUEMENT */
+  if (window.innerWidth > 768) {
+    const prev = document.createElement('button');
+    prev.innerHTML = '&#8249;';
+    prev.style.cssText = 'position:absolute;left:24px;top:50%;transform:translateY(-50%);background:rgba(255,255,255,0.15);border:none;color:white;font-size:48px;padding:12px 20px;border-radius:4px;cursor:pointer;z-index:2;';
+    prev.addEventListener('click', () => {
+      const currentIndex = Math.round(track.scrollLeft / window.innerWidth);
+      track.scrollTo({ left: (currentIndex - 1) * window.innerWidth, behavior: 'smooth' });
+    });
+
+    const next = document.createElement('button');
+    next.innerHTML = '&#8250;';
+    next.style.cssText = 'position:absolute;right:24px;top:50%;transform:translateY(-50%);background:rgba(255,255,255,0.15);border:none;color:white;font-size:48px;padding:12px 20px;border-radius:4px;cursor:pointer;z-index:2;';
+    next.addEventListener('click', () => {
+      const currentIndex = Math.round(track.scrollLeft / window.innerWidth);
+      track.scrollTo({ left: (currentIndex + 1) * window.innerWidth, behavior: 'smooth' });
+    });
+
+    fs.appendChild(prev);
+    fs.appendChild(next);
+  }
+
+  document.body.appendChild(fs);
   track.scrollLeft = index * window.innerWidth;
 }
 

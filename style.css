@@ -210,6 +210,22 @@ img { max-width: 100%; }
   text-transform: uppercase;
   color: rgba(255,255,255,0.38);
 }
+.hero__slogan {
+  position: absolute;
+  z-index: 10;
+  top: 120px;
+  right: 60px;
+  font-family: 'Great Vibes', cursive;
+  font-size: clamp(44px,3vw, 84px);
+  color: rgba(255,255,255,0.75);
+  text-align: right;
+  letter-spacing: 1.5px;
+  line-height: 1;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.5);
+  animation: slideFromRight 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  animation-delay: 5.8s;
+  opacity: 0;
+}
 
 /* ══════════════════════════════════════════
    COUNTDOWN
@@ -258,10 +274,10 @@ img { max-width: 100%; }
   letter-spacing: -0.5px;
 }
 .section-title em {
+  font-family: 'Dancing Script', cursive;
   font-style: normal;
   font-weight: 700;
   color: var(--orange);
-  font-family: 'Dancing Script', cursive;
   font-size: 1.2em;
 }
 .section-title.white { color: var(--white); }

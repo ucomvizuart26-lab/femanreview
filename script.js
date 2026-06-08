@@ -144,92 +144,47 @@ document.querySelectorAll('.galerie-back').forEach(btn => {
 /* PHOTO FULLSCREEN LIGHTBOX */
 function openLightbox(photos, index) {
   const fs = document.createElement('div');
-  fs.className = 'photo-fullscreen';
-  fs.style.cssText = 'overflow:hidden;';
-  
-  let current = index;
-  let touchStartX = 0;
-  let touchEndX = 0;
-  let isSwiping = false;
+  fs.style.cssText = 'position:fixed;inset:0;background:#000;z-index:99999;display:flex;flex-direction:column;';
 
-  function render(idx, direction) {
-    const img = document.createElement('img');
-    img.src = photos[idx];
-    img.style.cssText = `
-      max-width:90vw;max-height:90vh;object-fit:contain;border-radius:8px;
-      position:absolute;transition:transform 0.35s cubic-bezier(0.25,0.46,0.45,0.94);
-    `;
-    const oldImg = fs.querySelector('img');
-    if (oldImg && direction) {
-      const enterFrom = direction === 'left' ? '100%' : '-100%';
-      const exitTo = direction === 'left' ? '-100%' : '100%';
-      img.style.transform = `translateX(${enterFrom})`;
-      fs.appendChild(img);
-      requestAnimationFrame(() => {
-        img.style.transform = 'translateX(0)';
-        oldImg.style.transform = `translateX(${exitTo})`;
-        setTimeout(() => oldImg.remove(), 350);
-      });
-    } else {
-      if (oldImg) oldImg.remove();
-      fs.appendChild(img);
-    }
-  }
-
-  fs.innerHTML = `
-    <button class="lb-prev">&#8249;</button>
-    <button class="lb-next">&#8250;</button>
-    <button class="lb-close">✕</button>
+  const track = document.createElement('div');
+  track.style.cssText = `
+    display:flex;
+    height:100%;
+    overflow-x:scroll;
+    scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
   `;
-  render(current, null);
+  track.style.setProperty('-ms-overflow-style', 'none');
 
-  /* BOUTONS CACHES SUR MOBILE */
-  const isMobile = window.innerWidth <= 768;
-  if (isMobile) {
-    fs.querySelector('.lb-prev').style.display = 'none';
-    fs.querySelector('.lb-next').style.display = 'none';
-  }
-
-  fs.querySelector('.lb-prev').addEventListener('click', (e) => {
-    e.stopPropagation();
-    current = (current - 1 + photos.length) % photos.length;
-    render(current, 'right');
+  photos.forEach(url => {
+    const slide = document.createElement('div');
+    slide.style.cssText = `
+      min-width:100vw;
+      height:100%;
+      scroll-snap-align:center;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex-shrink:0;
+    `;
+    const img = document.createElement('img');
+    img.src = url;
+    img.style.cssText = 'max-width:95vw;max-height:90vh;object-fit:contain;border-radius:8px;';
+    slide.appendChild(img);
+    track.appendChild(slide);
   });
 
-  fs.querySelector('.lb-next').addEventListener('click', (e) => {
-    e.stopPropagation();
-    current = (current + 1) % photos.length;
-    render(current, 'left');
-  });
+  const closeBtn = document.createElement('button');
+  closeBtn.innerHTML = '✕';
+  closeBtn.style.cssText = 'position:absolute;top:20px;right:24px;background:transparent;border:none;color:white;font-size:28px;cursor:pointer;z-index:2;';
+  closeBtn.addEventListener('click', () => fs.remove());
 
-  /* SWIPE MOBILE FLUIDE */
-  fs.addEventListener('touchstart', (e) => {
-    touchStartX = e.changedTouches[0].screenX;
-    isSwiping = true;
-  }, { passive: true });
-
-  fs.addEventListener('touchend', (e) => {
-    if (!isSwiping) return;
-    touchEndX = e.changedTouches[0].screenX;
-    const diff = touchStartX - touchEndX;
-    if (Math.abs(diff) > 40) {
-      if (diff > 0) {
-        current = (current + 1) % photos.length;
-        render(current, 'left');
-      } else {
-        current = (current - 1 + photos.length) % photos.length;
-        render(current, 'right');
-      }
-    }
-    isSwiping = false;
-  }, { passive: true });
-
-  fs.querySelector('.lb-close').addEventListener('click', () => fs.remove());
-  fs.addEventListener('click', (e) => {
-    if (e.target === fs) fs.remove();
-  });
-
+  fs.appendChild(track);
+  fs.appendChild(closeBtn);
   document.body.appendChild(fs);
+
+  track.scrollLeft = index * window.innerWidth;
 }
 
 document.querySelectorAll('.galerie-placeholder').forEach((el, i, all) => {
@@ -244,7 +199,6 @@ document.querySelectorAll('.galerie-placeholder').forEach((el, i, all) => {
     openLightbox(photos, index >= 0 ? index : 0);
   });
 });
-
 /* VIDEO FULLSCREEN LIGHTBOX */
 const videos = [
   { id: 'O7gmpGDD_Rg', title: 'Lancement FEMAN 2026' },

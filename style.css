@@ -259,8 +259,10 @@ img { max-width: 100%; }
 }
 .section-title em {
   font-style: normal;
-  font-weight: 900;
+  font-weight: 700;
   color: var(--orange);
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.2em;
 }
 .section-title.white { color: var(--white); }
 .section-title.white em { color: var(--orange2); }

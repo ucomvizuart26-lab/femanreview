@@ -145,55 +145,89 @@ document.querySelectorAll('.galerie-back').forEach(btn => {
 function openLightbox(photos, index) {
   const fs = document.createElement('div');
   fs.className = 'photo-fullscreen';
-  fs.innerHTML = `
-    <button class="lb-prev">&#8249;</button>
-    <img src="${photos[index]}" alt="photo">
-    <button class="lb-next">&#8250;</button>
-    <button class="lb-close">✕</button>
-  `;
-
+  fs.style.cssText = 'overflow:hidden;';
+  
   let current = index;
   let touchStartX = 0;
   let touchEndX = 0;
-  const img = fs.querySelector('img');
+  let isSwiping = false;
 
-  function goTo(newIndex) {
-    img.style.opacity = '0';
-    img.style.transform = 'scale(0.97)';
-    setTimeout(() => {
-      current = (newIndex + photos.length) % photos.length;
-      img.src = photos[current];
-      img.style.opacity = '1';
-      img.style.transform = 'scale(1)';
-    }, 220);
+  function render(idx, direction) {
+    const img = document.createElement('img');
+    img.src = photos[idx];
+    img.style.cssText = `
+      max-width:90vw;max-height:90vh;object-fit:contain;border-radius:8px;
+      position:absolute;transition:transform 0.35s cubic-bezier(0.25,0.46,0.45,0.94);
+    `;
+    const oldImg = fs.querySelector('img');
+    if (oldImg && direction) {
+      const enterFrom = direction === 'left' ? '100%' : '-100%';
+      const exitTo = direction === 'left' ? '-100%' : '100%';
+      img.style.transform = `translateX(${enterFrom})`;
+      fs.appendChild(img);
+      requestAnimationFrame(() => {
+        img.style.transform = 'translateX(0)';
+        oldImg.style.transform = `translateX(${exitTo})`;
+        setTimeout(() => oldImg.remove(), 350);
+      });
+    } else {
+      if (oldImg) oldImg.remove();
+      fs.appendChild(img);
+    }
   }
 
-  img.style.transition = 'opacity 0.25s ease, transform 0.25s ease';
+  fs.innerHTML = `
+    <button class="lb-prev">&#8249;</button>
+    <button class="lb-next">&#8250;</button>
+    <button class="lb-close">✕</button>
+  `;
+  render(current, null);
+
+  /* BOUTONS CACHES SUR MOBILE */
+  const isMobile = window.innerWidth <= 768;
+  if (isMobile) {
+    fs.querySelector('.lb-prev').style.display = 'none';
+    fs.querySelector('.lb-next').style.display = 'none';
+  }
 
   fs.querySelector('.lb-prev').addEventListener('click', (e) => {
     e.stopPropagation();
-    goTo(current - 1);
+    current = (current - 1 + photos.length) % photos.length;
+    render(current, 'right');
   });
 
   fs.querySelector('.lb-next').addEventListener('click', (e) => {
     e.stopPropagation();
-    goTo(current + 1);
+    current = (current + 1) % photos.length;
+    render(current, 'left');
   });
 
+  /* SWIPE MOBILE FLUIDE */
   fs.addEventListener('touchstart', (e) => {
     touchStartX = e.changedTouches[0].screenX;
-  });
+    isSwiping = true;
+  }, { passive: true });
 
   fs.addEventListener('touchend', (e) => {
+    if (!isSwiping) return;
     touchEndX = e.changedTouches[0].screenX;
     const diff = touchStartX - touchEndX;
-    if (Math.abs(diff) > 50) {
-      goTo(diff > 0 ? current + 1 : current - 1);
+    if (Math.abs(diff) > 40) {
+      if (diff > 0) {
+        current = (current + 1) % photos.length;
+        render(current, 'left');
+      } else {
+        current = (current - 1 + photos.length) % photos.length;
+        render(current, 'right');
+      }
     }
-  });
+    isSwiping = false;
+  }, { passive: true });
 
   fs.querySelector('.lb-close').addEventListener('click', () => fs.remove());
-  fs.addEventListener('click', (e) => { if (e.target === fs) fs.remove(); });
+  fs.addEventListener('click', (e) => {
+    if (e.target === fs) fs.remove();
+  });
 
   document.body.appendChild(fs);
 }
@@ -211,32 +245,95 @@ document.querySelectorAll('.galerie-placeholder').forEach((el, i, all) => {
   });
 });
 
-/* VIDEO FULLSCREEN */
-document.getElementById('video-1').addEventListener('click', () => {
+/* VIDEO FULLSCREEN LIGHTBOX */
+const videos = [
+  { id: 'O7gmpGDD_Rg', title: 'Lancement FEMAN 2026' },
+  { id: 'TQszswcED1k', title: 'FEMAN 2026' }
+];
+
+function openVideoLightbox(index) {
   const fs = document.createElement('div');
-  fs.style.cssText = 'position:fixed;inset:0;background:#000;z-index:99999;display:flex;align-items:center;justify-content:center;cursor:pointer;';
-  fs.innerHTML = `
-    <iframe 
-      src="https://www.youtube.com/embed/O7gmpGDD_Rg?autoplay=1&mute=0&controls=1&modestbranding=1&rel=0&showinfo=0" 
-      style="width:90vw;height:80vh;border:none;border-radius:8px;" 
-      allow="autoplay;fullscreen">
-    </iframe>
-    <button style="position:absolute;top:20px;right:24px;background:transparent;border:none;color:white;font-size:28px;cursor:pointer;" onclick="this.parentElement.remove()">✕</button>
-  `;
-  fs.addEventListener('click', (e) => { if(e.target === fs) fs.remove(); });
+  fs.style.cssText = 'position:fixed;inset:0;background:#000;z-index:99999;display:flex;align-items:center;justify-content:center;overflow:hidden;';
+
+  let current = index;
+  let touchStartX = 0;
+
+  function renderVideo(idx, direction) {
+    const iframe = document.createElement('iframe');
+    iframe.src = `https://www.youtube.com/embed/${videos[idx].id}?autoplay=1&mute=0&controls=1&modestbranding=1&rel=0`;
+    iframe.style.cssText = `
+      width:90vw;height:80vh;border:none;border-radius:8px;
+      position:absolute;
+      transition:transform 0.35s cubic-bezier(0.25,0.46,0.45,0.94);
+    `;
+    iframe.allow = 'autoplay;fullscreen';
+
+    const oldIframe = fs.querySelector('iframe');
+    if (oldIframe && direction) {
+      const enterFrom = direction === 'left' ? '100%' : '-100%';
+      const exitTo = direction === 'left' ? '-100%' : '100%';
+      iframe.style.transform = `translateX(${enterFrom})`;
+      fs.appendChild(iframe);
+      requestAnimationFrame(() => {
+        iframe.style.transform = 'translateX(0)';
+        oldIframe.style.transform = `translateX(${exitTo})`;
+        setTimeout(() => oldIframe.remove(), 350);
+      });
+    } else {
+      if (oldIframe) oldIframe.remove();
+      fs.appendChild(iframe);
+    }
+  }
+
+  const closeBtn = document.createElement('button');
+  closeBtn.innerHTML = '✕';
+  closeBtn.style.cssText = 'position:absolute;top:20px;right:24px;background:transparent;border:none;color:white;font-size:28px;cursor:pointer;z-index:2;';
+  closeBtn.addEventListener('click', () => fs.remove());
+  fs.appendChild(closeBtn);
+
+  renderVideo(current, null);
+
+  /* SWIPE */
+  fs.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+  }, { passive: true });
+
+  fs.addEventListener('touchend', (e) => {
+    const diff = touchStartX - e.changedTouches[0].screenX;
+    if (Math.abs(diff) > 40) {
+      if (diff > 0 && current < videos.length - 1) {
+        current++;
+        renderVideo(current, 'left');
+      } else if (diff < 0 && current > 0) {
+        current--;
+        renderVideo(current, 'right');
+      }
+    }
+  }, { passive: true });
+
+  /* BOUTONS SUR ORDI */
+  if (window.innerWidth > 768) {
+    const prev = document.createElement('button');
+    prev.innerHTML = '&#8249;';
+    prev.style.cssText = 'position:absolute;left:24px;top:50%;transform:translateY(-50%);background:rgba(255,255,255,0.15);border:none;color:white;font-size:48px;padding:12px 20px;border-radius:4px;cursor:pointer;z-index:2;';
+    prev.addEventListener('click', () => {
+      if (current > 0) { current--; renderVideo(current, 'right'); }
+    });
+
+    const next = document.createElement('button');
+    next.innerHTML = '&#8250;';
+    next.style.cssText = 'position:absolute;right:24px;top:50%;transform:translateY(-50%);background:rgba(255,255,255,0.15);border:none;color:white;font-size:48px;padding:12px 20px;border-radius:4px;cursor:pointer;z-index:2;';
+    next.addEventListener('click', () => {
+      if (current < videos.length - 1) { current++; renderVideo(current, 'left'); }
+    });
+
+    fs.appendChild(prev);
+    fs.appendChild(next);
+  }
+
+  fs.addEventListener('click', (e) => { if (e.target === fs) fs.remove(); });
   document.body.appendChild(fs);
-});
-document.getElementById('video-2').addEventListener('click', () => {
-  const fs = document.createElement('div');
-  fs.style.cssText = 'position:fixed;inset:0;background:#000;z-index:99999;display:flex;align-items:center;justify-content:center;cursor:pointer;';
-  fs.innerHTML = `
-    <iframe 
-      src="https://www.youtube.com/embed/TQszswcED1k?autoplay=1&mute=0&controls=1&modestbranding=1&rel=0&showinfo=0" 
-      style="width:90vw;height:80vh;border:none;border-radius:8px;" 
-      allow="autoplay;fullscreen">
-    </iframe>
-    <button style="position:absolute;top:20px;right:24px;background:transparent;border:none;color:white;font-size:28px;cursor:pointer;" onclick="this.parentElement.remove()">✕</button>
-  `;
-  fs.addEventListener('click', (e) => { if(e.target === fs) fs.remove(); });
-  document.body.appendChild(fs);
-});
+}
+
+document.getElementById('video-1').addEventListener('click', () => openVideoLightbox(0));
+document.getElementById('video-2').addEventListener('click', () => openVideoLightbox(1));

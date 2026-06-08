@@ -56,38 +56,48 @@
   var splash = document.getElementById('splash');
   var path = document.getElementById('wave-path');
   var start = null;
-  var duration = 4000;
+  var duration = 4500;
+  var waveComplete = false;
+  var pageReady = false;
+
+  function tryHide() {
+    if (waveComplete && pageReady) {
+      setTimeout(function() {
+        splash.style.opacity = '0';
+        setTimeout(function() { splash.style.display = 'none'; }, 1000);
+      }, 1000);
+    }
+  }
 
   function animateWave(timestamp) {
     if (!start) start = timestamp;
     var elapsed = timestamp - start;
     var progress = Math.min(elapsed / duration, 1);
-    
     var fill = 200 - (progress * 200);
     var waveAmp = 7 * Math.sin(progress * Math.PI * 3) * (1 - progress * 0.8);
-
     var p1y = fill + waveAmp;
     var p2y = fill - waveAmp;
     var p3y = fill + waveAmp;
     var p4y = fill - waveAmp * 0.5;
-
     path.setAttribute('d',
-      'M0,' + (fill + waveAmp) + 
-      ' C50,' + p1y + ' 80,' + p2y + ' 120,' + p3y + 
+      'M0,' + (fill + waveAmp) +
+      ' C50,' + p1y + ' 80,' + p2y + ' 120,' + p3y +
       ' C150,' + p3y + ' 175,' + p4y + ' 200,' + fill +
       ' L200,200 L0,200 Z'
     );
-
     if (progress < 1) {
       requestAnimationFrame(animateWave);
     } else {
       path.setAttribute('d', 'M0,0 L200,0 L200,200 L0,200 Z');
-      setTimeout(function() {
-        splash.style.opacity = '0';
-        setTimeout(function() { splash.style.display = 'none'; }, 1000);
-      }, 600);
+      waveComplete = true;
+      tryHide();
     }
   }
+
+  window.addEventListener('load', function() {
+    pageReady = true;
+    tryHide();
+  });
 
   setTimeout(function() {
     requestAnimationFrame(animateWave);

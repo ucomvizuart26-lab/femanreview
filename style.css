@@ -1047,21 +1047,21 @@ img { max-width: 100%; }
   margin-bottom: 48px;
 }
 #page-direction .direction-card {
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.08);
+  background: #1a3a5c;
+  border: 1px solid rgba(26,123,191,0.3);
   border-radius: var(--radius);
   padding: 32px 28px;
   text-align: center;
   transition: all .3s;
 }
 #page-direction .direction-card:hover {
-  background: rgba(255,255,255,0.08);
+  background: #1e4a7a;
   transform: translateY(-4px);
 }
 #page-direction .direction-featured {
   grid-column: span 2;
-  background: rgba(229,90,0,0.12);
-  border-color: rgba(229,90,0,0.3);
+  background: #0d2a4a;
+  border-color: rgba(26,123,191,0.5);
   display: grid;
   grid-template-columns: auto 1fr;
   text-align: left;

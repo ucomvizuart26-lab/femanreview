@@ -151,45 +151,50 @@ function openLightbox(photos, index) {
     <button class="lb-next">&#8250;</button>
     <button class="lb-close">✕</button>
   `;
-  
+
   let current = index;
   let touchStartX = 0;
   let touchEndX = 0;
+  const img = fs.querySelector('img');
+
+  function goTo(newIndex) {
+    img.style.opacity = '0';
+    img.style.transform = 'scale(0.97)';
+    setTimeout(() => {
+      current = (newIndex + photos.length) % photos.length;
+      img.src = photos[current];
+      img.style.opacity = '1';
+      img.style.transform = 'scale(1)';
+    }, 220);
+  }
+
+  img.style.transition = 'opacity 0.25s ease, transform 0.25s ease';
 
   fs.querySelector('.lb-prev').addEventListener('click', (e) => {
     e.stopPropagation();
-    current = (current - 1 + photos.length) % photos.length;
-    fs.querySelector('img').src = photos[current];
-  });
-  
-  fs.querySelector('.lb-next').addEventListener('click', (e) => {
-    e.stopPropagation();
-    current = (current + 1) % photos.length;
-    fs.querySelector('img').src = photos[current];
+    goTo(current - 1);
   });
 
-  /* SWIPE MOBILE */
+  fs.querySelector('.lb-next').addEventListener('click', (e) => {
+    e.stopPropagation();
+    goTo(current + 1);
+  });
+
   fs.addEventListener('touchstart', (e) => {
     touchStartX = e.changedTouches[0].screenX;
   });
+
   fs.addEventListener('touchend', (e) => {
     touchEndX = e.changedTouches[0].screenX;
     const diff = touchStartX - touchEndX;
     if (Math.abs(diff) > 50) {
-      if (diff > 0) {
-        current = (current + 1) % photos.length;
-      } else {
-        current = (current - 1 + photos.length) % photos.length;
-      }
-      fs.querySelector('img').src = photos[current];
+      goTo(diff > 0 ? current + 1 : current - 1);
     }
   });
 
   fs.querySelector('.lb-close').addEventListener('click', () => fs.remove());
-  fs.addEventListener('click', (e) => {
-    if (e.target === fs) fs.remove();
-  });
-  
+  fs.addEventListener('click', (e) => { if (e.target === fs) fs.remove(); });
+
   document.body.appendChild(fs);
 }
 
@@ -205,6 +210,7 @@ document.querySelectorAll('.galerie-placeholder').forEach((el, i, all) => {
     openLightbox(photos, index >= 0 ? index : 0);
   });
 });
+
 /* VIDEO FULLSCREEN */
 document.getElementById('video-1').addEventListener('click', () => {
   const fs = document.createElement('div');

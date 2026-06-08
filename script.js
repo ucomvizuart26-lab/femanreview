@@ -153,7 +153,9 @@ function openLightbox(photos, index) {
   `;
   
   let current = index;
-  
+  let touchStartX = 0;
+  let touchEndX = 0;
+
   fs.querySelector('.lb-prev').addEventListener('click', (e) => {
     e.stopPropagation();
     current = (current - 1 + photos.length) % photos.length;
@@ -165,7 +167,24 @@ function openLightbox(photos, index) {
     current = (current + 1) % photos.length;
     fs.querySelector('img').src = photos[current];
   });
-  
+
+  /* SWIPE MOBILE */
+  fs.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+  });
+  fs.addEventListener('touchend', (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+    const diff = touchStartX - touchEndX;
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) {
+        current = (current + 1) % photos.length;
+      } else {
+        current = (current - 1 + photos.length) % photos.length;
+      }
+      fs.querySelector('img').src = photos[current];
+    }
+  });
+
   fs.querySelector('.lb-close').addEventListener('click', () => fs.remove());
   fs.addEventListener('click', (e) => {
     if (e.target === fs) fs.remove();

@@ -1236,12 +1236,15 @@ img { max-width: 100%; }
 }
  .hero__slogan {
   position: absolute;
-  bottom: 40px;
+  bottom: 60px;
   left: 0;
   right: 0;
   text-align: center;
-  font-size: clamp(22px, 6vw, 32px);
+  font-size: clamp(28px, 8vw, 42px);
   display: block;
+  opacity: 0;
+  animation: slideFromRight 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  animation-delay: 5.8s;
 }
 
   /* COUNTDOWN 2x2 symétrique */

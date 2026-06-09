@@ -213,13 +213,13 @@ img { max-width: 100%; }
 .hero__slogan {
   position: absolute;
   z-index: 10;
-  top: 120px;
+  top: 140px;
   right: 60px;
   font-family: 'Great Vibes', cursive;
-  font-size: clamp(44px,3vw, 84px);
+  font-size: clamp(55px,3vw,94px);
   color: rgba(255,255,255,0.75);
   text-align: right;
-  letter-spacing: 1.5px;
+  letter-spacing: 1.1px;
   line-height: 1;
   text-shadow: 0 2px 12px rgba(0,0,0,0.5);
   animation: slideFromRight 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
@@ -1233,6 +1233,15 @@ img { max-width: 100%; }
   font-size: 9px;
   white-space: nowrap;
   letter-spacing: 3px;
+}
+ .hero__slogan {
+  position: absolute;
+  bottom: 40px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: clamp(22px, 6vw, 32px);
+  display: block;
 }
 
   /* COUNTDOWN 2x2 symétrique */

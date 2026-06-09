@@ -313,3 +313,42 @@ function openVideoLightbox(index) {
 
 document.getElementById('video-1').addEventListener('click', () => openVideoLightbox(0));
 document.getElementById('video-2').addEventListener('click', () => openVideoLightbox(1));
+
+/* RESERVATION */
+emailjs.init('Zc1UFU3ByImPSPq_3');
+
+document.getElementById('btnReservation').addEventListener('click', () => {
+  const modale = document.getElementById('modaleReservation');
+  modale.style.display = 'flex';
+  modale.style.opacity = '0';
+  modale.style.transition = 'opacity 0.4s ease';
+  setTimeout(() => { modale.style.opacity = '1'; }, 10);
+});
+
+document.getElementById('btnEnvoyerReservation').addEventListener('click', () => {
+  const nom = document.getElementById('res-nom').value.trim();
+  const prenom = document.getElementById('res-prenom').value.trim();
+  const email = document.getElementById('res-email').value.trim();
+  const places = document.getElementById('res-places').value.trim();
+
+  if (!nom || !prenom || !email || !places) {
+    alert('Veuillez remplir tous les champs.');
+    return;
+  }
+
+  emailjs.send('service_q6x3eva', 'template_6vf1yrb', {
+    nom: nom,
+    prenom: prenom,
+    email: email,
+    places: places
+  }).then(() => {
+    document.getElementById('modaleReservation').style.display = 'none';
+    showToast('Réservation confirmée — À bientôt au FEMAN !', '#3d8b2a');
+    document.getElementById('res-nom').value = '';
+    document.getElementById('res-prenom').value = '';
+    document.getElementById('res-email').value = '';
+    document.getElementById('res-places').value = '';
+  }).catch(() => {
+    alert('Erreur lors de l\'envoi. Veuillez réessayer.');
+  });
+});

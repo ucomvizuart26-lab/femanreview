@@ -231,6 +231,11 @@ img { max-width: 100%; }
    COUNTDOWN
 ══════════════════════════════════════════ */
 .countdown-section { background: var(--orange); padding: 36px 24px; text-align: center; }
+.countdown-section { 
+  background: var(--orange); 
+  padding: 26px 24px 38px; 
+  text-align: center; 
+}
 .countdown-label {
   color: rgba(255,255,255,0.8); font-size: 11px; font-weight: 700;
   letter-spacing: 3px; text-transform: uppercase; margin-bottom: 18px;
@@ -244,6 +249,35 @@ img { max-width: 100%; }
 .cd-num { font-size: 48px; font-weight: 700; color: var(--white); line-height: 1; }
 .cd-unit { font-size: 9px; color: rgba(255,255,255,0.7); font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-top: 4px; }
 .cd-sep { font-size: 44px; font-weight: 700; color: rgba(255,255,255,0.4); }
+.countdown-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  margin-top: 0;
+}
+
+.btn-reservation {
+  display: inline-block;
+  background: transparent;
+  color: white;
+  border: 1.5px solid rgba(255,255,255,0.6);
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  padding: 11px 28px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all .3s;
+}
+.btn-reservation:hover {
+  border-color: white;
+  background: rgba(255,255,255,0.15);
+  color: white;
+}
 
 /* ══════════════════════════════════════════
    SECTIONS COMMUNES
@@ -857,6 +891,14 @@ img { max-width: 100%; }
   }
   .cd-sep { display: none; }
   .cd-block { width: 100%; }
+  .countdown-wrapper {
+  flex-direction: column;
+  gap: 20px;
+}
+.btn-reservation {
+  width: 100%;
+  text-align: center;
+}
 
   /* CONTACT bouton envoyer centré */
   .btn-contact {

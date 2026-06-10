@@ -84,15 +84,15 @@ function showToast(msg, color = '#3d8b2a') {
   const toast = document.createElement('div');
   toast.textContent = msg;
   Object.assign(toast.style, {
-    position:'fixed', bottom:'28px', right:'28px', background: color, color:'white',
+    position:'fixed', top:'28px', right:'28px', background: color, color:'white',
     padding:'14px 24px', borderRadius:'10px', fontSize:'14px', fontWeight:'700',
-    zIndex:'9999', boxShadow:'0 8px 30px rgba(0,0,0,0.3)',
-    opacity:'0', transform:'translateY(16px)', transition:'all 0.35s ease',
+    zIndex:'999999', boxShadow:'0 8px 30px rgba(0,0,0,0.3)',
+    opacity:'0', transform:'translateY(-16px)', transition:'all 0.35s ease',
     fontFamily:"'DM Sans', sans-serif"
   });
   document.body.appendChild(toast);
   setTimeout(() => { toast.style.opacity='1'; toast.style.transform='translateY(0)'; }, 10);
-  setTimeout(() => { toast.style.opacity='0'; toast.style.transform='translateY(16px)'; setTimeout(() => toast.remove(), 350); }, 2800);
+  setTimeout(() => { toast.style.opacity='0'; toast.style.transform='translateY(-16px)'; setTimeout(() => toast.remove(), 350); }, 2800);
 }
 
 /* ── INSCRIPTION ── */
@@ -351,4 +351,28 @@ document.getElementById('btnEnvoyerReservation').addEventListener('click', () =>
   }).catch(() => {
     alert('Erreur lors de l\'envoi. Veuillez réessayer.');
   });
+});
+/* CUSTOM SELECT */
+const customSelect = document.getElementById('customSelect');
+const selected = customSelect.querySelector('.custom-select-selected');
+const options = customSelect.querySelector('.custom-select-options');
+const hiddenInput = document.getElementById('selectObjet');
+
+selected.addEventListener('click', () => {
+  options.classList.toggle('open');
+});
+
+customSelect.querySelectorAll('.custom-option').forEach(option => {
+  option.addEventListener('click', () => {
+    selected.textContent = option.textContent;
+    selected.classList.add('filled');
+    hiddenInput.value = option.dataset.value;
+    options.classList.remove('open');
+  });
+});
+
+document.addEventListener('click', (e) => {
+  if (!customSelect.contains(e.target)) {
+    options.classList.remove('open');
+  }
 });

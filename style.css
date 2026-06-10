@@ -761,6 +761,57 @@ img { max-width: 100%; }
 .btn-whatsapp:hover {
   background: #1ebc59;
 }
+.custom-select {
+  position: relative;
+  cursor: pointer;
+}
+.custom-select-selected {
+  padding: 14px 18px;
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 6px;
+  background: rgba(255,255,255,0.04);
+  color: rgba(255,255,255,0.20);
+  font-size: 14px;
+  font-weight: 300;
+  transition: all .25s;
+}
+.custom-select-selected.filled {
+  color: white;
+}
+.custom-select-selected:hover {
+  border-color: rgba(255,255,255,0.55);
+  background: rgba(255,255,255,0.07);
+}
+.custom-select-options {
+  display: none;
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0; right: 0;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+  z-index: 999;
+  overflow: hidden;
+}
+.custom-select-options.open {
+  display: block;
+}
+.custom-option {
+  padding: 14px 18px;
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+  transition: all .2s;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+.custom-option:last-child {
+  border-bottom: none;
+}
+.custom-option:hover {
+  background: rgba(229,90,0,0.08);
+  color: var(--orange);
+  padding-left: 24px;
+}
 
 /* ══════════════════════════════════════════
    FOOTER

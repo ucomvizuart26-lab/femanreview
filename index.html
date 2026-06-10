@@ -605,14 +605,17 @@ Confirmer ma réservation
         </div>
         <div class="form-group">
           <label>Objet</label>
-          <select>
-            <option value="" disabled selected>Sélectionnez un objet</option>
-            <option>Partenariat & Sponsoring</option>
-            <option>Presse & Médias</option>
-            <option>Exposants & Artisans</option>
-            <option>Bénévolat</option>
-            <option>Information générale</option>
-          </select>
+          <div class="custom-select" id="customSelect">
+  <div class="custom-select-selected">Sélectionnez un objet</div>
+  <div class="custom-select-options">
+    <div class="custom-option" data-value="Partenariat & Sponsoring">🤝 Partenariat & Sponsoring</div>
+    <div class="custom-option" data-value="Presse & Médias">📰 Presse & Médias</div>
+    <div class="custom-option" data-value="Exposants & Artisans">🎨 Exposants & Artisans</div>
+    <div class="custom-option" data-value="Bénévolat">🙋 Bénévolat</div>
+    <div class="custom-option" data-value="Information générale">💬 Information générale</div>
+  </div>
+  <input type="hidden" id="selectObjet" name="objet">
+</div>
         </div>
         <div class="form-group">
           <label>Message</label>

@@ -331,8 +331,8 @@ document.getElementById('btnEnvoyerReservation').addEventListener('click', () =>
   const email = document.getElementById('res-email').value.trim();
   const places = document.getElementById('res-places').value.trim();
 
-  if (!nom || !prenom || !email || !places) {
-    alert('Veuillez remplir tous les champs.');
+ if (!nom || !prenom || !email || !places) {
+    showToast('Veuillez remplir tous les champs.', '#e55a00');
     return;
   }
 

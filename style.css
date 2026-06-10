@@ -441,7 +441,7 @@ img { max-width: 100%; }
   color: var(--white);
   background:
     linear-gradient(rgba(0,0,0,0.72), rgba(0,0,0,0.72)),
-    url("https://i.ibb.co/90sgq1v/Parc-malakoff.jpg") center/cover no-repeat;
+    url("https://i.ibb.co/jkwxb9H2/people-festival-enjoy.jpg") center/cover no-repeat;
 }
 .programme-grid {
   display: flex;
@@ -1277,10 +1277,11 @@ img { max-width: 100%; }
   letter-spacing: 3px;
 }
  .hero__slogan {
-  position: absolute;
-  bottom: 60px;
-  left: 0;
-  right: 0;
+  position: absolute !important;
+  top: unset !important;
+  bottom: 50px !important;
+  left: 0 !important;
+  right: 0 !important;
   text-align: center;
   font-size: clamp(28px, 8vw, 42px);
   display: block;

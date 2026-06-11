@@ -224,9 +224,10 @@ document.querySelectorAll('.galerie-placeholder').forEach((el, i, all) => {
 /* VIDEO FULLSCREEN LIGHTBOX */
 const videos = [
   { id: 'O7gmpGDD_Rg', title: 'Lancement FEMAN 2026' },
-  { id: 'TQszswcED1k', title: 'FEMAN 2026' }
+  { id: 'TQszswcED1k', title: 'FEMAN 2026' },
+  { id: '5in2akN_QeU', title: 'FEMAN 2026' },
+  { id: 'NBz1qrXEQqo', title: 'FEMAN 2026' }
 ];
-
 function openVideoLightbox(index) {
   const fs = document.createElement('div');
   fs.style.cssText = 'position:fixed;inset:0;background:#000;z-index:99999;display:flex;align-items:center;justify-content:center;overflow:hidden;';
@@ -376,3 +377,5 @@ document.addEventListener('click', (e) => {
     options.classList.remove('open');
   }
 });
+document.getElementById('video-3').addEventListener('click', () => openVideoLightbox(2));
+document.getElementById('video-4').addEventListener('click', () => openVideoLightbox(3));

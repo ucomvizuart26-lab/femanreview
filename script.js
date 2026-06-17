@@ -105,20 +105,49 @@ document.getElementById('inscBtn')?.addEventListener('click', function() {
 
 /* ── CONTACT FORM ── */
 document.getElementById('contactBtn')?.addEventListener('click', function() {
-  const inputs = document.querySelectorAll('.contact-form input, .contact-form select, .contact-form textarea');
+  const form = document.querySelector('.contact-form');
+  const nom = form.querySelector('input[placeholder="Votre nom"]').value.trim();
+  const prenom = form.querySelector('input[placeholder="Votre prénom"]').value.trim();
+  const email = form.querySelector('input[type="email"]').value.trim();
+  const objet = document.getElementById('selectObjet').value.trim();
+  const message = form.querySelector('textarea').value.trim();
+
+  const inputs = form.querySelectorAll('input, textarea');
   let valid = true;
   inputs.forEach(input => {
     input.style.borderColor = input.value.trim() ? '#3d8b2a' : '#e55a00';
     if (!input.value.trim()) valid = false;
   });
-  if (valid) {
-    this.textContent = '✅ Message envoyé !';
-    this.style.background = '#3d8b2a';
-    inputs.forEach(input => { input.value = ''; input.style.borderColor = ''; });
-    showToast('Message envoyé — Merci pour votre message !');
-    setTimeout(() => { this.textContent = 'Envoyer le message'; this.style.background = ''; }, 3000);
+  if (!objet) valid = false;
+
+  if (!valid) {
+    showToast('Veuillez remplir tous les champs.', '#e55a00');
+    return;
   }
+
+  const btn = this;
+  btn.textContent = 'Envoi en cours...';
+
+  emailjs.send('service_q6x3eva', 'template_4y90rzp', {
+    nom: nom,
+    prenom: prenom,
+    email: email,
+    objet: objet,
+    message: message
+  }).then(() => {
+    btn.textContent = '✅ Message envoyé !';
+    btn.style.background = '#3d8b2a';
+    inputs.forEach(input => { input.value = ''; input.style.borderColor = ''; });
+    document.getElementById('selectObjet').value = '';
+    document.querySelector('.custom-select-selected').textContent = 'Sélectionnez un objet';
+    showToast('Message envoyé — Merci pour votre message !');
+    setTimeout(() => { btn.textContent = 'Envoyer'; btn.style.background = ''; }, 3000);
+  }).catch(() => {
+    btn.textContent = 'Envoyer';
+    showToast('Erreur lors de l\'envoi. Veuillez réessayer.', '#e55a00');
+  });
 });
+
 /* GALERIE */
 document.getElementById('block-photos').addEventListener('click', () => {
   document.getElementById('page-photos').classList.add('open');

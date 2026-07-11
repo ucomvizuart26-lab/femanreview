@@ -442,8 +442,21 @@
     return 'jy-serai-' + base.toLowerCase() + '.png';
   }
 
+ function isIOS(){
+    return /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+  }
+
   downloadBtn.addEventListener('click', () => {
-    canvas.toBlob((blob) => {
+    canvas.toBlob(async (blob) => {
+      if(isIOS() && navigator.canShare){
+        const file = new File([blob], getFileName(), {type:'image/png'});
+        if(navigator.canShare({files:[file]})){
+          try{
+            await navigator.share({ files:[file] });
+            return;
+          }catch(err){ return; }
+        }
+      }
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;

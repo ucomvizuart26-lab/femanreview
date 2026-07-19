@@ -105,6 +105,7 @@ document.getElementById('inscBtn')?.addEventListener('click', function() {
 
 /* ── CONTACT FORM ── */
 document.getElementById('contactBtn')?.addEventListener('click', function() {
+  console.log('🔴 CONTACT FORM DÉCLENCHÉ');
   const form = document.querySelector('.contact-form');
   const nom = form.querySelector('input[placeholder="Votre nom"]').value.trim();
   const prenom = form.querySelector('input[placeholder="Votre prénom"]').value.trim();
@@ -343,6 +344,8 @@ function openVideoLightbox(index) {
 
 document.getElementById('video-1').addEventListener('click', () => openVideoLightbox(0));
 document.getElementById('video-2').addEventListener('click', () => openVideoLightbox(1));
+document.getElementById('video-3').addEventListener('click', () => openVideoLightbox(2));
+document.getElementById('video-4').addEventListener('click', () => openVideoLightbox(3));
 
 /* RESERVATION */
 emailjs.init('Zc1UFU3ByImPSPq_3');
@@ -361,16 +364,23 @@ document.getElementById('btnEnvoyerReservation').addEventListener('click', () =>
   const email = document.getElementById('res-email').value.trim();
   const places = document.getElementById('res-places').value.trim();
 
- if (!nom || !prenom || !email || !places) {
+  if (!nom || !prenom || !email || !places) {
     showToast('Veuillez remplir tous les champs.', '#e55a00');
     return;
   }
 
+  // Email vers l'association
   emailjs.send('service_q6x3eva', 'template_6vf1yrb', {
-    nom: nom,
-    prenom: prenom,
-    email: email,
-    places: places
+    nom: nom, prenom: prenom, email: email, places: places,
+    type: 'Place gratuite au festival',
+    to_email: 'nantesafriqueculture@gmail.com'
+  });
+
+  // Email de confirmation vers la personne
+  emailjs.send('service_q6x3eva', 'template_6vf1yrb', {
+    nom: nom, prenom: prenom, email: email, places: places,
+    type: 'Place gratuite au festival',
+    to_email: email
   }).then(() => {
     document.getElementById('modaleReservation').style.display = 'none';
     showToast('Réservation confirmée — À bientôt au FEMAN !', '#3d8b2a');
@@ -382,6 +392,52 @@ document.getElementById('btnEnvoyerReservation').addEventListener('click', () =>
     alert('Erreur lors de l\'envoi. Veuillez réessayer.');
   });
 });
+
+/* RESERVATION CONFERENCE */
+document.getElementById('btnReservationConf').addEventListener('click', () => {
+  const modale = document.getElementById('modaleConference');
+  modale.style.display = 'flex';
+  modale.style.opacity = '0';
+  modale.style.transition = 'opacity 0.4s ease';
+  setTimeout(() => { modale.style.opacity = '1'; }, 10);
+});
+
+document.getElementById('btnEnvoyerConference').addEventListener('click', () => {
+  const nom = document.getElementById('conf-nom').value.trim();
+  const prenom = document.getElementById('conf-prenom').value.trim();
+  const email = document.getElementById('conf-email').value.trim();
+  const places = document.getElementById('conf-places').value.trim();
+
+  if (!nom || !prenom || !email || !places) {
+    showToast('Veuillez remplir tous les champs.', '#e55a00');
+    return;
+  }
+
+  // Email vers l'association
+  emailjs.send('service_q6x3eva', 'template_6vf1yrb', {
+    nom: nom, prenom: prenom, email: email, places: places,
+    type: 'Conférence Immobilier & Foncier',
+    to_email: 'nantesafriqueculture@gmail.com'
+  });
+
+  // Email de confirmation vers la personne
+  emailjs.send('service_q6x3eva', 'template_6vf1yrb', {
+    nom: nom, prenom: prenom, email: email, places: places,
+    type: 'Conférence Immobilier & Foncier',
+    to_email: email
+  }).then(() => {
+    document.getElementById('modaleConference').style.display = 'none';
+    showToast('Réservation confirmée — À bientôt à la conférence FEMAN !', '#3d8b2a');
+    document.getElementById('conf-nom').value = '';
+    document.getElementById('conf-prenom').value = '';
+    document.getElementById('conf-email').value = '';
+    document.getElementById('conf-places').value = '';
+  }).catch(() => {
+    showToast('Erreur lors de l\'envoi. Veuillez réessayer.', '#e55a00');
+  });
+});
+
+
 /* CUSTOM SELECT */
 const customSelect = document.getElementById('customSelect');
 const selected = customSelect.querySelector('.custom-select-selected');
@@ -406,5 +462,55 @@ document.addEventListener('click', (e) => {
     options.classList.remove('open');
   }
 });
-document.getElementById('video-3').addEventListener('click', () => openVideoLightbox(2));
-document.getElementById('video-4').addEventListener('click', () => openVideoLightbox(3));
+
+/* ── CARROUSEL VISUELS (push droite → gauche, boucle infinie, pause au survol/toucher) ── */
+(function() {
+  const frame = document.querySelector('.visuels-frame');
+  const track = document.getElementById('visuelsTrack');
+  if (!track || !frame) return;
+  const slides = Array.from(track.children);
+  const total = slides.length;
+
+  const firstClone = slides[0].cloneNode(true);
+  track.appendChild(firstClone);
+
+  let index = 0;
+  let timer = null;
+  const DELAY = 5000;
+
+  function goNext() {
+    index++;
+    track.style.transition = 'transform 0.8s cubic-bezier(0.65, 0, 0.35, 1)';
+    track.style.transform = `translateX(-${index * 100}%)`;
+
+    if (index === total) {
+      track.addEventListener('transitionend', resetToStart, { once: true });
+    }
+  }
+
+  function resetToStart() {
+    track.style.transition = 'none';
+    index = 0;
+    track.style.transform = 'translateX(0%)';
+  }
+
+  function startTimer() {
+    stopTimer();
+    timer = setInterval(goNext, DELAY);
+  }
+
+  function stopTimer() {
+    if (timer) clearInterval(timer);
+    timer = null;
+  }
+
+  startTimer();
+
+  /* PAUSE AU SURVOL (desktop) */
+  frame.addEventListener('mouseenter', stopTimer);
+  frame.addEventListener('mouseleave', startTimer);
+
+  /* PAUSE AU TOUCHER (mobile) */
+  frame.addEventListener('touchstart', stopTimer, { passive: true });
+  frame.addEventListener('touchend', startTimer, { passive: true });
+})();

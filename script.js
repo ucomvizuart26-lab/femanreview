@@ -350,7 +350,7 @@ document.getElementById('video-4').addEventListener('click', () => openVideoLigh
 /* RESERVATION */
 emailjs.init('Zc1UFU3ByImPSPq_3');
 
-document.getElementById('btnReservation').addEventListener('click', () => {
+document.getElementById('btnReservation')?.addEventListener('click', () => {
   const modale = document.getElementById('modaleReservation');
   modale.style.display = 'flex';
   modale.style.opacity = '0';

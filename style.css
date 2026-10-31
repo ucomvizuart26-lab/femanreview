@@ -482,7 +482,7 @@ img { max-width: 100%; }
   color: var(--white);
   background:
     linear-gradient(rgba(0,0,0,0.72), rgba(0,0,0,0.72)),
-    url("https://i.ibb.co/jkwxb9H2/people-festival-enjoy.jpg") center/cover no-repeat;
+    url("images/people-festival-enjoy.jpg") center/cover no-repeat;
 }
 .programme-grid {
   display: flex;
@@ -534,7 +534,7 @@ img { max-width: 100%; }
   content: '';
   position: absolute;
   inset: 0;
-  background-image: url("https://i.ibb.co/8LDtJsZ2/Bg-africantribal-motif.png");
+  background-image: url("images/Bg-africantribal-motif.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -1482,7 +1482,7 @@ img { max-width: 100%; }
   content: '';
   position: absolute;
   inset: 0;
-  background-image: url("https://i.ibb.co/8LDtJsZ2/Bg-africantribal-motif.png");
+  background-image: url("images/Bg-africantribal-motif.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

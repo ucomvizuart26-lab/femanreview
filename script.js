@@ -394,7 +394,7 @@ document.getElementById('btnEnvoyerReservation').addEventListener('click', () =>
 });
 
 /* RESERVATION CONFERENCE */
-document.getElementById('btnReservationConf').addEventListener('click', () => {
+document.getElementById('btnReservationConf')?.addEventListener('click', () => {
   const modale = document.getElementById('modaleConference');
   modale.style.display = 'flex';
   modale.style.opacity = '0';

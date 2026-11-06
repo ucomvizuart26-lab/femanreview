@@ -99,7 +99,7 @@ function showToast(msg, color = '#3d8b2a') {
 document.getElementById('inscBtn')?.addEventListener('click', function() {
   this.textContent = '✅ Inscription confirmée !';
   this.style.background = '#3d8b2a';
-  showToast('Inscription enregistrée — À bientôt au FEMAN !');
+  showToast('Inscription enregistrée. À bientôt au FEMAN !');
   setTimeout(() => { this.textContent = "S'inscrire gratuitement"; this.style.background = ''; }, 3000);
 });
 
@@ -141,7 +141,7 @@ document.getElementById('contactBtn')?.addEventListener('click', function() {
     inputs.forEach(input => { input.value = ''; input.style.borderColor = ''; });
     document.getElementById('selectObjet').value = '';
     document.querySelector('.custom-select-selected').textContent = 'Sélectionnez un objet';
-    showToast('Message envoyé — Merci pour votre message !');
+    showToast('Message envoyé. Merci pour votre message !');
     setTimeout(() => { btn.textContent = 'Envoyer'; btn.style.background = ''; }, 3000);
   }).catch(() => {
     btn.textContent = 'Envoyer';
@@ -383,7 +383,7 @@ document.getElementById('btnEnvoyerReservation').addEventListener('click', () =>
     to_email: email
   }).then(() => {
     document.getElementById('modaleReservation').style.display = 'none';
-    showToast('Réservation confirmée — À bientôt au FEMAN !', '#3d8b2a');
+    showToast('Réservation confirmée. À bientôt au FEMAN !', '#3d8b2a');
     document.getElementById('res-nom').value = '';
     document.getElementById('res-prenom').value = '';
     document.getElementById('res-email').value = '';
@@ -427,7 +427,7 @@ document.getElementById('btnEnvoyerConference').addEventListener('click', () => 
     to_email: email
   }).then(() => {
     document.getElementById('modaleConference').style.display = 'none';
-    showToast('Réservation confirmée — À bientôt à la conférence FEMAN !', '#3d8b2a');
+    showToast('Réservation confirmée. À bientôt à la conférence FEMAN !', '#3d8b2a');
     document.getElementById('conf-nom').value = '';
     document.getElementById('conf-prenom').value = '';
     document.getElementById('conf-email').value = '';
